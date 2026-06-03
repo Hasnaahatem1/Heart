@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heart Animation for Hamza</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #222;
+    margin: 0;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  svg {
+    width: 400px;
+    height: 400px;
+    overflow: visible;
+    filter: drop-shadow(0 0 15px rgba(255, 42, 42, 0.4));
+    /* نبض القلب يبدأ بعد 6.5 ثوانٍ (بعد اكتمال الرسم والتلوين وظهور الاسم) */
+    animation: heartbeat 1.5s ease-in-out 6.5s infinite;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.08); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.08); }
+  }
+  #heart-path {
+    stroke: #ff2a2a;
+    stroke-width: 2.5;
+    fill: transparent;
+    /* إعداد طول المسار لعمل حركة الرسم */
+    stroke-dasharray: 250;
+    stroke-dashoffset: 250;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    /* 
+      1. رسم الخط الخارجي يأخذ 3 ثواني
+      2. تعبئة اللون تبدأ بعد 3.5 ثانية وتأخذ 1.5 ثانية
+    */
+    animation: drawHeart 3s ease-in-out forwards, fillHeart 1.5s ease-in-out 3.5s forwards;
+  }
+  @keyframes drawHeart {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes fillHeart {
+    to {
+      fill: #ff2a2a;
+    }
+  }
+  #name-text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    fill: white;
+    opacity: 0;
+    /* ظهور الاسم يبدأ بعد 5 ثواني (بعد التلوين) ويأخذ ثانية واحدة */
+    animation: showText 1.5s ease-in-out 5s forwards;
+  }
+  @keyframes showText {
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <svg viewBox="0 0 100 100">
+    <!-- مسار رسم القلب -->
+    <path id="heart-path" d="M 50,85 C 50,85 15,55 15,30 C 15,10 40,10 50,25 C 60,10 85,10 85,30 C 85,55 50,85 50,85 Z" />
+    <!-- النص -->
+    <text id="name-text" x="50" y="42" text-anchor="middle" dominant-baseline="middle">Hamza</text>
+  </svg>
+</div>
+</body>
+</html>
